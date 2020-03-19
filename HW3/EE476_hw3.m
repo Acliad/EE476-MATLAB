@@ -2,6 +2,10 @@
 data = readtable("stars.txt");
 % Make the column headers look nice
 data.Properties.VariableNames = {'ID', 'R', 'i', 'Omega', 'phi', 'theta'};
+data.i = deg2rad(data.i);
+data.Omega = deg2rad(data.Omega);
+data.phi = deg2rad(data.phi);
+data.theta = deg2rad(data.theta);
 % Using the initial data, set up the initial state for the state variables
 % equations utilized from the second part of instructions, t=0
 % x1 = x position, x2 = x velocity, x3 = y position, x4 = y velocity
@@ -28,7 +32,7 @@ initial = table(...
 % x, dx/dt, y, dy/dt, z, dz/dt
 ss_initial = [-1.12,-211.48,-3.10,129.12,-3.40,-48.23];
 % time (Myrs)
-t = linspace(t_span(1), t_span(end), 5000);
+t = linspace(0, 90, 5000);
 % For debugging: planet ID
 id = 5;
 
@@ -91,6 +95,7 @@ for i = 1:100
               'Color', 'white');
         legend('\color{white}Star', '\color{white}Space Ship', ...
                'FontSize', 18, 'Color', 'k');
+        rotate3d on
 %         view(60,20);
     end
     pause(0.1)
