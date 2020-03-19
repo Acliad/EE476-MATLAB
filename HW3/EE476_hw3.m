@@ -112,6 +112,7 @@ end
 vid_name = 'galaxy';
 if REC_VIDEO
     v = VideoWriter(vid_name,'MPEG-4'); %#ok<UNRCH>
+    v.FrameRate = 10
     open(v)
     writeVideo(v,F)
     close(v)
