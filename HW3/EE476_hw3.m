@@ -109,6 +109,14 @@ for i = 1:100
     if REC_VIDEO; F(i) = getframe(gcf); end %#ok<UNRCH>
 end
 
+vid_name = 'galaxy';
+if REC_VIDEO
+    v = VideoWriter(vid_name,'MPEG-4'); %#ok<UNRCH>
+    open(v)
+    writeVideo(v,F)
+    close(v)
+end
+
  % defined in instructions
  function vc = orbit_speed(r)
      k = [...
