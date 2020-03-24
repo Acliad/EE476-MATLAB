@@ -10,31 +10,7 @@ data.theta = deg2rad(data.theta);
 
 % Constants and options
 MAX_STARS = length(data.ID);
-REC_VIDEO = false;
-
-
-% Using the initial data, set up the initial state for the state variables
-% equations utilized from the second part of instructions, t=0
-% x1 = x position, x2 = x velocity, x3 = y position, x4 = y velocity
-% x5 = z position, x6 = z velocity
-initial = table(...
-    ... % x1(0)
-    data.R .* (cos(data.phi) .* cos(data.Omega) - ...
-    sin(data.phi) .* cos(data.i) .* sin(data.Omega)), ...
-    ... % x2(0)
-    orbit_speed(data.R) .* (-sin(data.phi) .* cos(data.Omega) - ...
-    cos(data.phi) .* cos(data.i) .* sin(data.Omega)), ...
-    ... % x3(0)
-    data.R .* (cos(data.phi) .* sin(data.Omega) + ...
-    sin(data.phi) .* cos(data.i) .* cos(data.Omega)), ...
-    ... % x4(0)
-    orbit_speed(data.R) .* (-sin(data.phi) .* sin(data.Omega) + ...
-    cos(data.phi) .* cos(data.i) .* cos(data.Omega)), ...
-    ... % x5(0)
-    data.R .* (sin(data.phi) .* sin(data.i)), ...
-    ... % x6(0)
-    orbit_speed(data.R) .* (cos(data.phi) .* sin(data.i)), ...
-    'VariableNames', {'x1i', 'x2i' , 'x3i', 'x4i', 'x5i', 'x6i'});
+REC_VIDEO = true;
 
 % time (Myrs)
 t = linspace(0, 90, 5000);
@@ -94,7 +70,7 @@ for i = 1:100
         legend('\color{white}Star', '\color{white}Space Ship', ...
                'FontSize', 18, 'Color', 'k');
         rotate3d on
-%         view(60,20);
+        view(60,20);
     end
     
     if ~REC_VIDEO; pause(0.1); end 
@@ -109,10 +85,10 @@ for i = 1:100
     if REC_VIDEO; F(i) = getframe(gcf); end %#ok<UNRCH>
 end
 
-vid_name = 'galaxy';
+vid_name = 'galaxy3d';
 if REC_VIDEO
     v = VideoWriter(vid_name,'MPEG-4'); %#ok<UNRCH>
-    v.FrameRate = 10
+    v.FrameRate = 10;
     open(v)
     writeVideo(v,F)
     close(v)
